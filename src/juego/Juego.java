@@ -10,6 +10,7 @@ package juego;
  *
  * @author root
  */
+
 public class Juego {
 
     /**
