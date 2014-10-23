@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import static java.lang.Thread.sleep;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Tablero extends JPanel implements Runnable{
+public class Tablero extends JPanel implements Runnable, KeyListener{
     private Sprite sprites;
     private int spriteAncho=42;
     private int spriteAlto=42;
@@ -26,6 +28,7 @@ public class Tablero extends JPanel implements Runnable{
     private final int DELAY=50;
     private Thread hilo;
     private Fondo fondo;
+    private Elemento tanque;
     public Tablero(){
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
@@ -36,7 +39,12 @@ public class Tablero extends JPanel implements Runnable{
         imagenes.add(sprites.getSprite(3, 4));
         
         fondo = new Fondo( spriteAlto, spriteAncho, imagenes);
-        
+        imagenes = new ArrayList<BufferedImage>();
+        imagenes.add(sprites.getSprite(1, 1));
+        tanque = new Elemento(imagenes, 0, 0, 2, 2);
+         this.setFocusable(true);
+      this.requestFocus();
+        this.addKeyListener(this);
     }
     @Override
     public void addNotify(){
@@ -49,6 +57,7 @@ public class Tablero extends JPanel implements Runnable{
         super.paint(g);
         Graphics2D g2 = (Graphics2D)g;
         fondo.dibujar(g2);
+        tanque.dibujar(g2);
      /*    AffineTransform at = new AffineTransform();
 
               // 4. translate it to the center of the component
@@ -62,7 +71,7 @@ public class Tablero extends JPanel implements Runnable{
       //  g2.drawImage(sprites.getSprite(2, 2), 2*spriteAncho, 2*spriteAlto, this);
         if(y>7) y=1;
        */ 
-         g2.drawImage(sprites.getSprite(1, 1), 0,0, this);
+      //   g2.drawImage(sprites.getSprite(1, 1), 0,0, this);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -88,6 +97,38 @@ public class Tablero extends JPanel implements Runnable{
             }
             tiempo_act = System.currentTimeMillis();
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+ if(ke.getKeyCode()==KeyEvent.VK_RIGHT)
+     {
+         tanque.moverseDerecha();
+         
+     }    
+     if(ke.getKeyCode()==KeyEvent.VK_LEFT)
+     {
+        tanque.moverseDerecha();
+     }    
+      if(ke.getKeyCode()==KeyEvent.VK_UP)
+     {
+         tanque.moverseArriba();
+     }    
+     if(ke.getKeyCode()==KeyEvent.VK_DOWN)
+     {
+         tanque.moverseAbajo();
+     }    
+    
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
