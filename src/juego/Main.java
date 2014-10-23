@@ -20,7 +20,7 @@ public class Main extends JFrame{
         //CERRAR AL CLICKEAR EN LA CRUZ
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //TAMAÑO DE VENTANA
-        setSize(500,500);
+        setSize(10*42,10*42);
         //LOCACION DE LA VENTANA ( CENTRO )
         setLocationRelativeTo(null);
         //NO SE REDIMENSIONE LA VENTANA

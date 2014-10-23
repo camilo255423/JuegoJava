@@ -11,25 +11,32 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Tablero extends JPanel implements Runnable{
-    private Image background;
-    private Image angrybird;
-    private Thread hilo;
-    private int x,y;
+    private Sprite sprites;
+    private int spriteAncho=42;
+    private int spriteAlto=42;
+    private int x,y=2;
     private final int DELAY=50;
+    private Thread hilo;
+    private Fondo fondo;
     public Tablero(){
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
-        ImageIcon background_ic = new ImageIcon(this.getClass().getResource("background.jpg"));
-        ImageIcon angrybird_ic = new ImageIcon(this.getClass().getResource("angrybirds.png"));
-        background = background_ic.getImage();
-        angrybird = angrybird_ic.getImage();
-        x=70;
-        y=200;
+       // ImageIcon sprites_ic = new ImageIcon(this.getClass().getResource("recursos/original.png"));
+        sprites = new Sprite("recursos/sprites2.png",spriteAncho,spriteAlto);
+        ArrayList<BufferedImage> imagenes = new ArrayList<BufferedImage>();
+        imagenes.add(sprites.getSprite(0, 0));
+        imagenes.add(sprites.getSprite(3, 4));
+        
+        fondo = new Fondo( spriteAlto, spriteAncho, imagenes);
+        
     }
     @Override
     public void addNotify(){
@@ -41,16 +48,26 @@ public class Tablero extends JPanel implements Runnable{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.drawImage(background, 0,0, null);
-        g2.drawImage(angrybird,x,y, null);
+        fondo.dibujar(g2);
+     /*    AffineTransform at = new AffineTransform();
+
+              // 4. translate it to the center of the component
+              at.translate(getWidth() / 2, getHeight() / 2);
+ at.translate(42, 0);
+              // 3. do the actual rotation
+              at.rotate(Math.PI/2);
+             
+     //   g2.drawImage(sprites.getSprite(0, 0), 0,0, this);
+        g2.drawImage(sprites.getSprite(1, y++), at , this);
+      //  g2.drawImage(sprites.getSprite(2, 2), 2*spriteAncho, 2*spriteAlto, this);
+        if(y>7) y=1;
+       */ 
+         g2.drawImage(sprites.getSprite(1, 1), 0,0, this);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
     public void ciclo(){
-        x += 1;
-        if ( x > (500+70) ){
-            x = -70;
-        }
+      
     }
     @Override
     public void run() {
