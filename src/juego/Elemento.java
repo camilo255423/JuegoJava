@@ -38,13 +38,14 @@ public class Elemento {
       }
       public void moverseIzqierda()
       {
-          
+          System.out.println("posición actual "+x+" "+y);
           if(fondo.posibleMoverseA(x-vx, y))
           x=x-vx;
       }
       public void moverseDerecha()
       {
         
+          System.out.println("posición actual "+x+" "+y);
           if(fondo.posibleMoverseA(x+vx, y))
           x=x+vx;
       }

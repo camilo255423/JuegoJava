@@ -52,25 +52,31 @@ public class Fondo {
         {
            for(int j=0;j<nColumnas;j++)
            {
-               g2.drawImage(sprites.get(elementos[i][j]), i*spriteAlto, j*spriteAncho, null);
+               g2.drawImage(sprites.get(elementos[i][j]), j*spriteAlto, i*spriteAncho, null);
            } 
         }    
     } 
     boolean posibleMoverseA(int x, int y)
     {
-        if(hayLadrillo(x,y)) return false;
-        if(hayLadrillo(this.spriteAncho+x,y)) return false;
-        if(hayLadrillo(x,this.spriteAlto+y)) return false;
-        if(hayLadrillo(this.spriteAncho+x,this.spriteAlto+y)) return false;
+        int offSetX=2;
+        int offSetY=2;
+        System.out.println("Moverse A");
+        if(hayLadrillo(x+offSetX,y+offSetY)) return false;
+        if(hayLadrillo(this.spriteAncho+x-offSetX,y+offSetY)) return false;
+        if(hayLadrillo(x+offSetX,this.spriteAlto+y-offSetY)) return false;
+        if(hayLadrillo(this.spriteAncho+x-offSetX,this.spriteAlto+y-offSetY)) return false;
         return true;
     } 
     boolean hayLadrillo(int x, int y)
     {
         int nx = nColumnas * x/totalAncho;
         int ny = nFilas * y/totalAlto;
-        System.out.println(nx+" "+ny);
-        if (elementos[nx][ny]==ladrillo)
+        
+        System.out.println("Revisando "+x+" "+y);
+        System.out.println("Posición "+ny+" "+nx);
+        if (elementos[ny][nx]==ladrillo)
         {
+            System.out.println("hay ladrillo en "+ny+" "+nx);
             return true;
         }
         return false;
