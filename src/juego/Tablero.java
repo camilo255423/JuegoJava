@@ -41,6 +41,13 @@ public class Tablero extends JPanel implements Runnable, KeyListener{
         fondo = new Fondo( spriteAlto, spriteAncho, imagenes);
         imagenes = new ArrayList<BufferedImage>();
         imagenes.add(sprites.getSprite(1, 1));
+        imagenes.add(sprites.getSprite(1, 2));
+        imagenes.add(sprites.getSprite(1, 3));
+        imagenes.add(sprites.getSprite(1, 4));
+        imagenes.add(sprites.getSprite(1, 5));
+        imagenes.add(sprites.getSprite(1, 6));
+        imagenes.add(sprites.getSprite(1, 7));
+        
         tanque = new Elemento(imagenes, fondo, 0, 0, 3, 3);
          this.setFocusable(true);
       this.requestFocus();

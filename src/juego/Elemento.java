@@ -7,6 +7,7 @@
 package juego;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -21,6 +22,11 @@ public class Elemento {
       int vx;
       int vy;
       Fondo fondo;
+      int ancho;
+      int alto;
+      int nAnimacion;
+      double angulo;
+   
     public Elemento(ArrayList<BufferedImage> sprites, Fondo fondo,int x, int y, int vx, int vy) {
         this.sprites = sprites;
         this.x = x;
@@ -28,38 +34,86 @@ public class Elemento {
         this.vx = vx;
         this.vy = vy;
         this.fondo = fondo;
+        this.ancho=sprites.get(0).getWidth();
+        this.alto=sprites.get(0).getHeight();
+        this.angulo=0;
+        this.nAnimacion=0;
+        
     }
            
       public void dibujar(Graphics2D g2)
       {
-        
-               g2.drawImage(sprites.get(0), x, y, null);
-            
+        if(nAnimacion>=sprites.size())
+        {
+            nAnimacion=0;
+        }
+          
+                AffineTransform at = new AffineTransform();
+
+                if(angulo==0)
+               g2.drawImage(sprites.get(nAnimacion), x, y, null);
+                else if (angulo==Math.PI) {
+               at.translate(x+ancho, y+alto);
+               at.rotate(angulo);
+               g2.drawImage(sprites.get(nAnimacion), at, null);
+                }
+                else if (angulo==Math.PI/2) {
+               at.translate(x+ancho, y);
+               at.rotate(angulo);
+               g2.drawImage(sprites.get(nAnimacion), at, null);
+                }
+            else if (angulo==3*Math.PI/2) {
+               at.translate(x, y+alto);
+               at.rotate(angulo);
+               g2.drawImage(sprites.get(nAnimacion), at, null);
+                }
+                
+      }
+      public void rotar(double angulo)
+      {
+       this.angulo=angulo;
+      
+      
       }
       public void moverseIzqierda()
       {
           System.out.println("posición actual "+x+" "+y);
+          rotar(3*Math.PI/2);
           if(fondo.posibleMoverseA(x-vx, y))
+          {    
           x=x-vx;
+          nAnimacion++;
+          }
       }
       public void moverseDerecha()
       {
+          rotar(Math.PI/2);
         
           System.out.println("posición actual "+x+" "+y);
           if(fondo.posibleMoverseA(x+vx, y))
+          {    
           x=x+vx;
+          nAnimacion++;
+          }
       }
       public void moverseArriba()
       {
-          System.out.println("Arr");
+             rotar(0);
           if(fondo.posibleMoverseA(x, y-vy))
-          y=y-vy;
+          {
+              y=y-vy;
+              nAnimacion++;
+          }
       }
       public void moverseAbajo()
       {
-          
+             rotar(Math.PI);
+       
           if(fondo.posibleMoverseA(x, y+vy))
-          y=y+vy;
+          {
+              y=y+vy;
+              nAnimacion++;
+          }
       }
     }      
     
