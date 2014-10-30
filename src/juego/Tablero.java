@@ -41,7 +41,7 @@ public class Tablero extends JPanel implements Runnable, KeyListener{
         fondo = new Fondo( spriteAlto, spriteAncho, imagenes);
         imagenes = new ArrayList<BufferedImage>();
         imagenes.add(sprites.getSprite(1, 1));
-        tanque = new Elemento(imagenes, 0, 0, 2, 2);
+        tanque = new Elemento(imagenes, fondo, 0, 0, 2, 2);
          this.setFocusable(true);
       this.requestFocus();
         this.addKeyListener(this);
@@ -108,7 +108,7 @@ public class Tablero extends JPanel implements Runnable, KeyListener{
     public void keyPressed(KeyEvent ke) {
  if(ke.getKeyCode()==KeyEvent.VK_RIGHT)
      {
-         tanque.moverseDerecha();
+         tanque.moverseIzqierda();
          
      }    
      if(ke.getKeyCode()==KeyEvent.VK_LEFT)

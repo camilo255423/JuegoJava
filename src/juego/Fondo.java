@@ -17,8 +17,12 @@ import java.util.ArrayList;
 public class Fondo {
     public static final int  espacio=0;
     public static final int  ladrillo=1;
+    int nFilas=10;
+    int nColumnas=10;
     int spriteAlto;
     int spriteAncho;
+    int totalAlto;
+    int totalAncho;
     ArrayList<BufferedImage> sprites;
     int elementos [][]=new int[][]
     {   {espacio,espacio,espacio,espacio,espacio,espacio,ladrillo,espacio,espacio,ladrillo},
@@ -38,17 +42,39 @@ public class Fondo {
         this.spriteAlto = spriteAlto;
         this.spriteAncho = spriteAncho;
         this.sprites = sprites;
+        this.totalAlto=this.spriteAlto*nFilas;
+        this.totalAncho=this.spriteAncho*nColumnas;
     }
     
     public void dibujar(Graphics2D g2)
     {
-        for(int i=0;i<10;i++)
+        for(int i=0;i<nFilas;i++)
         {
-           for(int j=0;j<10;j++)
+           for(int j=0;j<nColumnas;j++)
            {
                g2.drawImage(sprites.get(elementos[i][j]), i*spriteAlto, j*spriteAncho, null);
            } 
         }    
+    } 
+    boolean posibleMoverseA(int x, int y)
+    {
+        if(hayLadrillo(x,y)) return false;
+        if(hayLadrillo(this.spriteAncho+x,y)) return false;
+        if(hayLadrillo(x,this.spriteAlto+y)) return false;
+        if(hayLadrillo(this.spriteAncho+x,this.spriteAlto+y)) return false;
+        return true;
+    } 
+    boolean hayLadrillo(int x, int y)
+    {
+        int nx = nColumnas * x/totalAncho;
+        int ny = nFilas * y/totalAlto;
+        System.out.println(nx+" "+ny);
+        if (elementos[nx][ny]==ladrillo)
+        {
+            return true;
+        }
+        return false;
+        
     }        
     
 }

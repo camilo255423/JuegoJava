@@ -20,15 +20,16 @@ public class Elemento {
       int y;
       int vx;
       int vy;
-
-    public Elemento(ArrayList<BufferedImage> sprites, int x, int y, int vx, int vy) {
+      Fondo fondo;
+    public Elemento(ArrayList<BufferedImage> sprites, Fondo fondo,int x, int y, int vx, int vy) {
         this.sprites = sprites;
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+        this.fondo = fondo;
     }
-      
+           
       public void dibujar(Graphics2D g2)
       {
         
@@ -37,18 +38,26 @@ public class Elemento {
       }
       public void moverseIzqierda()
       {
+          
+          if(fondo.posibleMoverseA(x-vx, y))
           x=x-vx;
       }
       public void moverseDerecha()
       {
+        
+          if(fondo.posibleMoverseA(x+vx, y))
           x=x+vx;
       }
       public void moverseArriba()
       {
+          System.out.println("Arr");
+          if(fondo.posibleMoverseA(x, y-vy))
           y=y-vy;
       }
       public void moverseAbajo()
       {
+          
+          if(fondo.posibleMoverseA(x, y+vy))
           y=y+vy;
       }
     }      
