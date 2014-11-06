@@ -75,37 +75,42 @@ public class Elemento {
       
       
       }
-      public void moverseIzqierda()
+      public boolean moverseIzqierda()
       {
-          System.out.println("posición actual "+x+" "+y);
+         
           rotar(3*Math.PI/2);
           if(fondo.posibleMoverseA(x-vx, y))
           {    
           x=x-vx;
           nAnimacion++;
+          return true;
           }
+          return false;
       }
-      public void moverseDerecha()
+      public boolean moverseDerecha()
       {
           rotar(Math.PI/2);
         
-          System.out.println("posición actual "+x+" "+y);
           if(fondo.posibleMoverseA(x+vx, y))
           {    
           x=x+vx;
           nAnimacion++;
+          return true;
           }
+          return false;
       }
-      public void moverseArriba()
+      public boolean moverseArriba()
       {
              rotar(0);
           if(fondo.posibleMoverseA(x, y-vy))
           {
               y=y-vy;
               nAnimacion++;
+              return true;
           }
+          return false;
       }
-      public void moverseAbajo()
+      public boolean moverseAbajo()
       {
              rotar(Math.PI);
        
@@ -113,7 +118,9 @@ public class Elemento {
           {
               y=y+vy;
               nAnimacion++;
+              return true;
           }
+          return false;
       }
     }      
     

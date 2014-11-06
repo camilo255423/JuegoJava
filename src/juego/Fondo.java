@@ -60,7 +60,7 @@ public class Fondo {
     {
         int offSetX=2;
         int offSetY=2;
-        System.out.println("Moverse A");
+        
         if(hayLadrillo(x+offSetX,y+offSetY)) return false;
         if(hayLadrillo(this.spriteAncho+x-offSetX,y+offSetY)) return false;
         if(hayLadrillo(x+offSetX,this.spriteAlto+y-offSetY)) return false;
@@ -72,11 +72,10 @@ public class Fondo {
         int nx = nColumnas * x/totalAncho;
         int ny = nFilas * y/totalAlto;
         
-        System.out.println("Revisando "+x+" "+y);
-        System.out.println("Posición "+ny+" "+nx);
+        if(x<=0 || y<=0 || x>=totalAncho || y>=totalAlto) return true;
+     
         if (elementos[ny][nx]==ladrillo)
         {
-            System.out.println("hay ladrillo en "+ny+" "+nx);
             return true;
         }
         return false;

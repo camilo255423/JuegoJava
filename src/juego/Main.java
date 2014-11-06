@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 public class Main extends JFrame{
     public Main(){
         //TITULO
-        setTitle("Como Crear un Juego 2D con Java - La base 01");
+        setTitle("Proyecto Final Informática 2: Tank 1990");
         //CERRAR AL CLICKEAR EN LA CRUZ
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //TAMAÑO DE VENTANA
